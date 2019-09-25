@@ -4,7 +4,7 @@ import re
 import time
 import TickerConfig
 from config.urlConf import urls
-
+from selenium.webdriver.chrome.options import Options
 
 def getDrvicesID(session):
     """
@@ -14,7 +14,10 @@ def getDrvicesID(session):
     if TickerConfig.COOKIE_TYPE is 1:
         from selenium import webdriver
         cookies = []
-        driver = webdriver.Chrome(executable_path=TickerConfig.CHROME_PATH)
+        options = Options()
+        options.add_argument('--no-sandbox')
+        options.add_argument('--headless')
+        driver = webdriver.Chrome(chrome_options=options,executable_path=TickerConfig.CHROME_PATH)
         driver.get("https://www.12306.cn/index/index.html")
         time.sleep(10)
         for c in driver.get_cookies():
